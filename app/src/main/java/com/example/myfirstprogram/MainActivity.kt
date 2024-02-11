@@ -1,5 +1,6 @@
 package com.example.myfirstprogram
 
+import android.graphics.drawable.shapes.OvalShape
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,9 +14,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Icon
@@ -78,15 +81,24 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         modifier = Modifier
             //.size(400.dp),
             .fillMaxSize()
+            .background(color = Color.LightGray)
+            .border(5.dp, color = Color.Magenta)
+            .padding(10.dp)
+            .border(8.dp, color = Color.Blue)
+            .padding(10.dp)
+            .border(5.dp, color = Color.Cyan)
         //contentAlignment = Alignment.Center
     ) {
         Text(
             text = "Ahahahaha",
             fontSize = 30.sp,
             modifier = modifier
+                .padding(10.dp)
+                .border(7.dp, color = Color.Yellow)
+                .offset(-30.dp,-30.dp)
                 .padding(24.dp)
                 .background(Color.LightGray)
-                .border(2.dp, Color.Black, RectangleShape)
+                .border(2.dp, Color.Black, shape = CircleShape)
                 .align(Alignment.BottomEnd),
             color = Color.Yellow,
 
@@ -114,7 +126,9 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
         LazyColumn(
             horizontalAlignment = Alignment.End,
-            modifier = modifier.fillMaxWidth()
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(10.dp)
         ) {
             items(10) { index ->
                 Icon(
