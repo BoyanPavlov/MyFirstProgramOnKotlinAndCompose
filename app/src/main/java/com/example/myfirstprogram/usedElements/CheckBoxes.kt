@@ -1,6 +1,8 @@
 package com.example.myfirstprogram.usedElements
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Text
 import androidx.compose.material3.TriStateCheckbox
@@ -13,6 +15,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.state.ToggleableState
+import androidx.compose.ui.unit.dp
 
 
 data class ToggleableInfo(
@@ -21,7 +24,7 @@ data class ToggleableInfo(
 )
 
 @Composable
-fun CheckBoxes(modifier: Modifier = Modifier) {
+fun CheckBoxes() {
     val checkboxes = remember {
         mutableStateListOf(
             ToggleableInfo(
@@ -52,16 +55,37 @@ fun CheckBoxes(modifier: Modifier = Modifier) {
             ToggleableState.On -> ToggleableState.Off
             else -> ToggleableState.On
         }
+
+        checkboxes.indices.forEach { index ->
+            checkboxes[index] = checkboxes[index].copy(
+                isChecked = triState == ToggleableState.On
+            )
+        }
     }
 
-    TriStateCheckbox(state = triState, onClick = {
-
-    })
-
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.clickable {
+            toggleTristate()
+        }.padding(end = 16.dp, start = 5.dp)
+    ) {
+        TriStateCheckbox(
+            state = triState,
+            onClick = toggleTristate
+        )
+        Text(text = "File types")
+    }
 
     checkboxes.forEachIndexed { index, info ->
         Row(
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .padding(start = 32.dp)
+                .clickable {
+                checkboxes[index] = info.copy(
+                    isChecked = !info.isChecked)
+            }
+                .padding(end = 16.dp)
         ) {
             Checkbox(
                 checked = info.isChecked,
